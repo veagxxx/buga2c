@@ -1,14 +1,14 @@
-import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-router'
-import commonRoutes from './common'
-import { routerList } from '@/mock/routerData';
+import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-router';
+import commonRoutes from './common';
 import { ElMessage } from 'element-plus';
-const modules = import.meta.glob('../pages/**/**.vue')
-const Layout = () => import('@/layout/Layout.vue')
-const Home = () => import('@/pages/home/index.vue')
+import { menuList } from '@/config';
+const modules = import.meta.glob('../pages/**/**.vue');
+const Layout = () => import('@/layout/Layout.vue');
+const Home = () => import('@/pages/home/index.vue');
 // 路由白名单
-const whiteList: string[] = ['/login', '/register']
+const whiteList: string[] = ['/login', '/register'];
 // 基本路由
-const base: string = import.meta.env.VITE_APP_BASE_PATH
+const base: string = import.meta.env.VITE_APP_BASE_PATH;
 // 路由菜单
 const routes: Array<RouteRecordRaw> = [
   ...Object.values(commonRoutes),
@@ -21,32 +21,31 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     component: Layout,
     children: [
-      // { path: '/index', name: 'index', component: Home },
+      { path: '/aaaa', name: 'index', component: Home },
     ]
   }
 ]
-
 const router: Router = createRouter({
   history: createWebHistory(base),
   routes,
-})
+});
+
 const mergeRoutes = (routerList: any) => {
   routerList.forEach((item: any) => {
     if (item.name !== 'Login') {
-      router.addRoute('Home', {
+      router.addRoute(item.parent || 'Home', {
         path: item.path,
         name: item.name,
         component: modules[/* @vite-ignore */ `../${item.component}`],
         meta: item.meta,
-      })
+      });
     }
     if(item.children && item.children.length) {
-      mergeRoutes(item.children)
+      mergeRoutes(item.children);
     }
   });
 }
-mergeRoutes(routerList)
-
+mergeRoutes(menuList);
 router.beforeEach((to, from, next) => {
   // if (to.meta.hasAuthority) {
   //   ElMessage.warning(`无访问权限，请检查是否登录`)
@@ -55,7 +54,7 @@ router.beforeEach((to, from, next) => {
   //     query: { redirect: to.fullPath },
   //   }
   // }
-  next()
+  next();
 })
 
-export default router 
+export default router; 

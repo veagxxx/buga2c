@@ -8,7 +8,7 @@ const useSettingStore = defineStore('settingStore', {
   actions: {
     updateCollapse() {
       this.hasCollapse = !this.hasCollapse;
-    }
+    },
   }
 })
 

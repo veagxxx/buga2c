@@ -11,7 +11,7 @@
     'sub-item-height': 40px,
   )
 );
-.el-menu-item {
+.el-menu-item:not(.el-menu--horizontal .el-menu-item) {
   border-radius: 8px;
   margin: 4px 0px;
   &:hover {

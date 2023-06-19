@@ -1,55 +1,70 @@
 <template>
   <div class="home-page">
-    <DataTable
-      :height="height - 64"
-      :columns="tableData.columns"
-      :tableData="tableData.data"
-      :loading="loading"
-      :pagination="true"
-      :currentPage="currentPage"
-      :pageSize="pageSize"
-      :pageSizes="[10, 20, 50, 100]"
-      :total="100"
-      @sizeChange="onSizeChange"
-      @currentChange="onCurrentChange"
-    />
+    <div class="page-wrapper">
+      <div class="page-left">
+        <BugList/>
+      </div>
+      <div class="page-right">
+        <div class="contribute-wrapper">
+          <!-- <Empty/> -->
+          <Contribute/>
+        </div>
+        <RankList/>
+      </div>
+    </div>
   </div>
 </template>
 <script lang='ts' setup>
-  import { useWidthHeight, useLoading } from '@/hooks/index';
-  import { onMounted, reactive, ref } from 'vue';
-  import { columns } from '@/mock/table';
-  import { testApi } from '@/api/test';
-  import DataTable from '@/components/DataTable/index.vue';
-  onMounted(() => {
-    getData()
+  import { getBugList } from '@/api/bug.api';
+  import { onMounted, ref } from 'vue';
+  import RankList from './component/rank/RankList.vue';
+  import BugList from './component/bug/BugList.vue';
+  import Contribute from './component/contribute/Contribute.vue';
+  onMounted(async () => {
+    // const res = await getBugList({ offset: 1, limit: 10 });
+    // console.log('res', res);
   })
-  const { height } = useWidthHeight();
-  const { loading, setLoading } = useLoading();
-  const currentPage = ref<number>(1);
-  const pageSize = ref<number>(20);
-  const tableData = reactive<any>({
-    data: [],
-    columns: columns,
-  })
-  const getData = async () => {
-    setLoading(true);
-    const res = await testApi({
-      pageIndex: currentPage.value,
-      pageSize: pageSize.value,
-    });
-    tableData.data = res.data;
-    setLoading(false);
-  }
-  const onSizeChange = (value: number) => {
-    pageSize.value = value
-  }
-  const onCurrentChange = (value: number) => {
-    currentPage.value = value
-  }
 </script>
 <style lang='scss' scoped>
   .home-page {
-    @include main-box;
+    min-height: calc(100vh - $headerHeight - 32px);
+    margin: 16px 60px;
+    position: relative;
+    .page-wrapper {
+      @include flex-box;
+      gap: 12px;
+      height: 100%;
+      width: 100%;
+      align-items: flex-start;
+      .page-left {
+        height: 100%;
+        flex: 1 0 auto;
+        box-sizing: border-box;
+        @media screen and (max-width: 768px) {
+          max-width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+          max-width: calc(100% - 280px);
+        }
+      }
+      .page-right {
+        @media screen and (max-width: 768px) {
+          display: none;
+        }
+        @media screen and (min-width: 768px) {
+          @include flex-box;
+          flex: 1 0 auto;
+          max-width: 280px;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+        }
+        .contribute-wrapper {
+          height: 180px;
+          width: 100%;
+          background-color: #fff;
+        }
+      }
+    }
   }
 </style>

@@ -19,6 +19,8 @@ import directive from './directives'
 // md-editor-v3
 import { MdEditor }  from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css';
+// tailwindcss
+import '@/styles/tailwind/index.css';
 const app = createApp(App);
 directive(app);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

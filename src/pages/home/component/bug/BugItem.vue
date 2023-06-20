@@ -1,40 +1,40 @@
 <template>
   <el-card shadow="never">
-    <div class="user-info">
-      <img src="/src/assets/images/avatar.jpeg"/>
-      <div class="info">
-        <span class="bug-author">{{ bugData.author }}</span>
-        <span class="bug-time">{{ bugData.createTime }}</span>
+    <div class="bug-info mb-2 flex">
+      <img class="bug-info-avatar" src="/src/assets/images/avatar.jpeg"/>
+      <div class="bug-info-publish mb-1 flex flex-col items-start ml-1">
+        <span class="bug-author text-sm f5">{{ bugData.author }}</span>
+        <span class="bug-time text-xs text-slate-500">{{ bugData.createTime }}</span>
       </div>
     </div>
-    <div class="bug-title">
+    <div class="bug-info-title mb-2 font-semibold truncate">
       {{ bugData.title }}
     </div>
-    <div class="bug-description">
+    <div class="bug-description mb-2 text-sm text-slate-500 cursor-pointer">
       {{ bugData.description }}
     </div>
-    <div class="bug-tags" v-if="bugData.tags">
+    <div class="bug-tags mb-2" v-if="bugData.tags">
       <el-tag v-for="(tag, tagIndex) in bugData.tags" :key="tag + tagIndex">
         {{ tag }}
       </el-tag>
     </div>
-    <el-space class="action-info" :size="10" :spacer="spacer">
-      <div class="action">
-        <div class="like-action">
-          <svg-icon icon-class="like"></svg-icon>
-          <span>{{ 123 }}</span>
+    <el-space class="action-wrapper w-full select-none" :size="10" :spacer="spacer">
+      <div class="action-info pl-6 pr-6 text-center">
+        <div class="like-action flex cursor-pointer" @click="onLike">
+          <svg-icon class-name="like" icon-class="like"></svg-icon>
+          <span class="text-sm ml-1 leading-4">{{ 123 }}</span>
         </div>
       </div>
-      <div class="action">
-        <div class="star-aciton">
+      <div class="action-info pl-6 pr-6 text-center">
+        <div class="star-aciton flex cursor-pointer">
           <svg-icon icon-class="star"></svg-icon>
-          <span>{{ 46 }}</span>
+          <span class="text-sm ml-1 leading-4">{{ 46 }}</span>
         </div>
       </div>
-      <div class="action">
-        <div class="comment-action">
+      <div class="action-info pl-6 pr-6 text-center">
+        <div class="comment-action flex cursor-pointer">
           <svg-icon icon-class="comment"></svg-icon>
-          <span>{{ 200 }}</span>
+          <span class="text-sm ml-1 leading-4">{{ 200 }}</span>
         </div>
       </div>
     </el-space>
@@ -46,7 +46,15 @@
     bugData: any;
   }
   withDefaults(defineProps<Props>(), {});
-  const spacer = h('span', { style: { color: '#ccc' } }, '|')
+  const spacer = h('span', { style: { color: '#ccc' } }, '|');
+
+  const onLike = () => {
+    const iconLike = document.getElementsByClassName('like')[0] as HTMLElement;
+    if (iconLike) {
+      console.log(iconLike)
+      iconLike.style.animation = 'heartBeat 1s linear';
+    }
+  }
 </script>
 <style lang='scss' scoped>
   .el-card {
@@ -55,66 +63,14 @@
     &:not(:last-of-type) {
       margin-bottom: 12px;
     }
-    .user-info {
-      @include flex-box;
-      margin-bottom: 12px;
-      img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-      }
-      .info {
-        @include flex-box;
-        margin-left: 12px;
-        align-items: flex-start;
-        flex-direction: column;
-        .bug-author {
-          font-weight: 500;
-          font-size: 14px;
-        }
-        .bug-time {
-          color: #888;
-          font-size: 13px;
-        }
-      }
+    .bug-info-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
     }
-    .bug-title {
-      font-weight: 600;
-      margin-bottom: 12px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .bug-description {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 12px;
-      cursor: pointer;
-    }
-    .bug-tags {
-      margin-bottom: 12px;
-      .el-tag:not(:last-of-type) {
-        margin-right: 8px;
-      }
-    }
-    .action-info {
-      width: 100%;
-      user-select: none;
-      .action {
-        padding: 0 24px;
-        width: 60px;
-        text-align: center;
-        & > div {
-          @include flex-box;
-          justify-content: center;
-          cursor: pointer;
-        }
-        & span {
-          font-size: 13px;
-          line-height: 16px;
-          margin-left: 2px;
-        }
-      }
+
+    .el-tag:not(:last-of-type) {
+      margin-right: 8px;
     }
   }
 </style>

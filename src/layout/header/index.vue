@@ -5,10 +5,10 @@
         <img src="/buga.svg"/>
         <span class="system-title">Buga</span>
       </div>
+      <div class="menu-wrapper">
+        <Menus/>
+      </div>
       <div class="content">
-        <div class="menu-wrapper">
-          <Menus/>
-        </div>
         <div class="user-avatar flex-box">
           <el-dropdown>
             <span class="dropdown-link">
@@ -63,10 +63,12 @@
       justify-content: space-between;
       margin: 0 auto;
       height: 100%;
+      :deep(.el-menu--horizontal) {
+        border-bottom: none;
+      }
       .content {
         height: 100%;
         justify-content: flex-end;
-        flex-grow: 1;
         .search-con {
           padding: 0 12px;
         }

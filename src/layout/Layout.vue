@@ -1,5 +1,5 @@
 <template>
-  <el-container class="container">
+  <el-container class="buga-container">
     <el-header>
       <Header></Header>
     </el-header>
@@ -18,7 +18,7 @@
 
 </script>
 <style lang='scss' scoped>
-.container {
+.buga-container {
   display: flex;
   height: 100%;
   overflow: hidden;
@@ -26,6 +26,7 @@
     padding: 0;
     box-shadow: 0 1px 4px rgba(0,21,41,.08);
     background-color: $headerBgColor;
+    border-bottom: 1px solid #0f172a1a;
   }
   .el-main {
     padding: 0px;

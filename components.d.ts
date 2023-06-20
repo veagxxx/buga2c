@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     DataTable: typeof import('./src/components/DataTable/index.vue')['default']
     Echarts: typeof import('./src/components/echarts/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCol: typeof import('element-plus/es')['ElCol']

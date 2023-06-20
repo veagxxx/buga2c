@@ -12,6 +12,7 @@
         <RankList/>
       </div>
     </div>
+    <el-backtop target=".el-main" :right="100" :bottom="100" />
   </div>
 </template>
 <script lang='ts' setup>
@@ -30,6 +31,9 @@
     min-height: calc(100vh - $headerHeight - 32px);
     margin: 16px 60px;
     position: relative;
+    @media screen and (max-width: 768px) {
+      margin: 12px;
+    }
     .page-wrapper {
       @include flex-box;
       gap: 12px;

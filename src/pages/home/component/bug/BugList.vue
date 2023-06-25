@@ -7,83 +7,26 @@
         :bugData="item"
       />
     </div>
-    <div class="bug-pagination">
-      <el-pagination
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize"
-        :small="false"
-        :background="false"
-        layout="prev, pager, next, jumper"
-        :total="1000"
-        />
-        <!-- @size-change="handleSizeChange"
-        @current-change="handleCurrentChange" -->
-    </div>
   </div>
 </template>
 <script lang='ts' setup>
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import BugItem from './BugItem.vue';
-  const bugList = [{
-    id: 1,
-    title: 'Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错Vue 报错',
-    description: "Module not found: Error: Can't resolve '../views/admin/AdminVeiw.vue'",
-    status: 1,
-    createTime: '2020-09-01 14:00',
-    author: '佛耶格',
-    tags: ['Vue', '前端']
-  },{
-    id: 2,
-    title: 'Vue 报错',
-    description: "Module not found: Error: Can't resolve '../views/admin/AdminVeiw.vue'",
-    status: 3,
-    createTime: '2020-09-01 14:00',
-    author: '佛耶格'
-  },{
-    id: 3,
-    title: 'Vue 报错',
-    description: "Module not found: Error: Can't resolve '../views/admin/AdminVeiw.vue'",
-    status: 1,
-    createTime: '2020-09-01 14:00',
-    author: '佛耶格'
-  },{
-    id: 4,
-    title: 'Vue 报错',
-    description: "Module not found: Error: Can't resolve '../views/admin/AdminVeiw.vue'",
-    status: 1,
-    createTime: '2020-09-01 14:00',
-    author: '佛耶格'
-  },{
-    id: 5,
-    title: 'Vue 报错',
-    description: "Module not found: Error: Can't resolve '../views/admin/AdminVeiw.vue'",
-    status: 1,
-    createTime: '2020-09-01 14:00',
-    author: '佛耶格'
-  },{
-    id: 6,
-    title: 'Vue 报错',
-    description: "Module not found: Error: Can't resolve '../views/admin/AdminVeiw.vue'",
-    status: 1,
-    createTime: '2020-09-01 14:00',
-    author: '佛耶格'
-  },{
-    id: 7,
-    title: 'Vue 报错',
-    description: "Module not found: Error: Can't resolve '../views/admin/AdminVeiw.vue'",
-    status: 1,
-    createTime: '2020-09-01 14:00',
-    author: '佛耶格'
-  },{
-    id: 8,
-    title: 'Vue 报错',
-    description: "Module not found: Error: Can't resolve '../views/admin/AdminVeiw.vue'",
-    status: 1,
-    createTime: '2020-09-01 14:00',
-    author: '佛耶格'
-  }];
-  const currentPage = ref(1);
-  const pageSize = ref(10);
+  import { getBugList } from '@/api/bug.api';
+  import { Bug } from '@/interface';
+
+  onMounted(() => {
+    queryBugs();
+  });
+  const bugList = ref<Bug[]>([]);
+  const queryBugs = async () => {
+    try {
+      const res = await getBugList({ offset: 1, limit: 10 });
+      bugList.value = res.data.list || [];
+    } catch (error) {
+      console.log(error);
+    }
+  }
 </script>
 <style lang='scss' scoped>
   .bugs-wrapper {

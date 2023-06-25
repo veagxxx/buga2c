@@ -57,8 +57,6 @@
   import { onMounted, ref } from 'vue';
   import moment from 'moment';
   import { contributeList } from './contribute';
-  import { useTitle } from '@/hooks';
-  useTitle();
   const months: string[] = [
     "January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"

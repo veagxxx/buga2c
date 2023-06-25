@@ -14,6 +14,8 @@ const service: AxiosInstance = axios.create({
 // 请求拦截
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig<any>) => {
+    // console.log(config);
+    // config.headers['Authorization'] = 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE2ODc0NDY1NTQsImV4cCI6MTY4NzQ1MDE1NH0.NkZ80IcHn5ubK_jjU1t-kjoRAdRB2OQd9ESNkOhw4e8'
     return config
   },
   (error: Error) => {

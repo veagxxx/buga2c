@@ -16,15 +16,12 @@
   </div>
 </template>
 <script lang='ts' setup>
-  import { getBugList } from '@/api/bug.api';
   import { onMounted, ref } from 'vue';
   import RankList from './component/rank/RankList.vue';
   import BugList from './component/bug/BugList.vue';
   import Contribute from './component/contribute/Contribute.vue';
-  onMounted(async () => {
-    // const res = await getBugList({ offset: 1, limit: 10 });
-    // console.log('res', res);
-  })
+  import { useTitle } from '@/hooks';
+  useTitle();
 </script>
 <style lang='scss' scoped>
   .home-page {

@@ -38,6 +38,7 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    Emoji: typeof import('./src/components/emoji/Emoji.vue')['default']
     Empty: typeof import('./src/components/empty/index.vue')['default']
     NumberAnimation: typeof import('./src/components/number-animation/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

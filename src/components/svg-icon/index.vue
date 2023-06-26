@@ -1,6 +1,6 @@
 <template>
   <svg :class="svgClass" aria-hidden="true" v-bind="attrs.onClick">
-    <use :xlink:href="iconName" />
+    <use id="line-path" :xlink:href="iconName" path-length="1" />
   </svg>
 </template>
 <script lang='ts' setup>
@@ -17,20 +17,20 @@
     size: {
       type: String,
       default: 'default'
-    }
+    },
   })
   const attrs = useAttrs()
   const svgClass = computed(() => {
     return {
       'svg-icon': true,
       [props.className]: props.className,
-      [`svg-icon-${props.size}`]: props.size,
+      [`svg-icon--${props.size}`]: props.size,
     }
   })
   const iconName = computed<string>(() => {
     return `#icon-${props.iconClass}`
   })
-  const fontSize = reactive({ default: '1em', small: '0.75em', large: '1.5em' })
+  const fontSize = reactive({ default: '1em', small: '0.75em', large: '24px' })
 </script>
 <style lang='scss' scoped>
   .svg-icon {
@@ -40,11 +40,11 @@
     fill: currentColor;
     font-size: v-bind('fontSize.default');
     overflow: hidden;
-    &.svg-icon-large {
+    &.svg-icon--large {
       font-size: v-bind('fontSize.large');
       height: v-bind('fontSize.large');
     }
-    &.svg-icon-small {
+    &.svg-icon--small {
       font-size: v-bind('fontSize.small');
       height: v-bind('fontSize.small');
     }

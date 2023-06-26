@@ -2,11 +2,11 @@
   <el-card shadow="never">
     <div class="bug-info mb-2 flex">
       <img class="bug-info-avatar" src="/src/assets/images/avatar.jpeg"/>
-      <div class="bug-info-publish mb-1 flex flex-col items-start ml-1">
-        <span class="bug-author text-sm f5">
+      <div class="bug-info-publish flex-1 mb-1 flex justify-between items-center ml-1">
+        <span class="bug-author text-sm f5 ml-1">
           {{ bugData.author.nickname }}
         </span>
-        <span class="bug-time text-xs text-slate-500">
+        <span class="bug-time text-sm text-slate-400">
           {{ bugData.createTime }}
         </span>
       </div>
@@ -22,44 +22,58 @@
         {{ tag.tagName }}
       </el-tag>
     </div>
-    <el-space class="action-wrapper w-full select-none" :size="10" :spacer="spacer">
+    <el-space class="action-wrapper w-full select-none mb-2" :size="10" :spacer="spacer">
       <div class="action-info pl-6 pr-6 text-center">
-        <div class="like-action flex cursor-pointer" @click="onLike">
+        <div class="like-action flex cursor-pointer text-slate-500" @click="onLike">
           <Transition name="zoom" mode="out-in">
             <svg-icon v-if="!like" icon-class="like"></svg-icon>
             <svg-icon v-else icon-class="like-fill"></svg-icon>
           </Transition>
-          <span class="text-sm ml-1 leading-4">{{ 123 }}</span>
+          <span class="text-xs ml-1 leading-4">{{ 123 }}</span>
         </div>
       </div>
       <div class="action-info pl-6 pr-6 text-center">
-        <div class="star-aciton flex items-center cursor-pointer">
+        <div class="star-aciton flex items-center cursor-pointer text-slate-500" @click="onCollect">
           <Transition name="zoom" mode="out-in">
             <svg-icon v-if="!like" icon-class="star"></svg-icon>
             <svg-icon v-else icon-class="star-fill"></svg-icon>
           </Transition>
-          <span class="text-sm ml-1 leading-4">{{ 46 }}</span>
+          <span class="text-xs ml-1 leading-4">{{ 46 }}</span>
         </div>
       </div>
-      <div class="action-info pl-6 pr-6 text-center">
+      <div class="action-info pl-6 pr-6 text-center text-slate-500" @click="onExpandComment">
         <div class="comment-action flex cursor-pointer">
           <svg-icon icon-class="comment"></svg-icon>
-          <span class="text-sm ml-1 leading-4">{{ 200 }}</span>
+          <span class="text-xs ml-1 leading-4">{{ 200 }}</span>
         </div>
       </div>
     </el-space>
+    <Comment :visible="action.comment"/>
   </el-card>
 </template>
 <script lang='ts' setup>
-  import { h, ref } from 'vue'
+  import { h, ref, reactive } from 'vue'
+  import Comment from './Comment.vue';
   interface Props {
     bugData: any;
   }
   withDefaults(defineProps<Props>(), {});
   const spacer = h('span', { style: { color: '#ccc' } }, '|');
   const like = ref<boolean>(false);
+  const action = reactive({
+    like: false,
+    collect: false,
+    comment: false,
+  })
   const onLike = () => {
     like.value = !like.value;
+  }
+  const onCollect = () => {
+    
+  }
+  const onExpandComment = () => {
+    action.comment = !action.comment;
+    console.log(action)
   }
 </script>
 <style lang='scss' scoped>

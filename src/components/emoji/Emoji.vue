@@ -27,7 +27,7 @@
         targetValue: emoji,
         select: true,
         deviationStart: 0,
-        deviationEnd: 1
+        deviationEnd: 0
       };
     };
     props.onInsert(generator);

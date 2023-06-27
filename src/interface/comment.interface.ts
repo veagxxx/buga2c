@@ -1,3 +1,4 @@
+import { Reply } from "./reply.interface";
 import { User } from "./user.interface";
 
 export interface Comment {
@@ -5,4 +6,5 @@ export interface Comment {
   commentTime: string;
   content: string;
   commentor: User;
+  replies: Reply[];
 }

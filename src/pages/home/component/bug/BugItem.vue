@@ -18,11 +18,11 @@
       {{ bugData.description }}
     </div>
     <div class="bug-tags mb-2" v-if="bugData.tags">
-      <el-tag v-for="(tag, tagIndex) in bugData.tags" :key="tag + tagIndex">
+      <el-tag v-for="(tag, tagIndex) in bugData.tags" :key="tag.tagName + tagIndex">
         {{ tag.tagName }}
       </el-tag>
     </div>
-    <el-space class="action-wrapper w-full select-none mb-2" :size="10" :spacer="spacer">
+    <el-space class="action-wrapper w-full select-none" :size="10" :spacer="spacer">
       <div class="action-info pl-6 pr-6 text-center">
         <div class="like-action flex cursor-pointer text-slate-500" @click="onLike">
           <Transition name="zoom" mode="out-in">
@@ -48,14 +48,15 @@
         </div>
       </div>
     </el-space>
-    <Comment :visible="action.comment"/>
+    <Comment class="mt-2" :visible="action.comment" :compose="bugData"/>
   </el-card>
 </template>
 <script lang='ts' setup>
   import { h, ref, reactive } from 'vue'
   import Comment from './Comment.vue';
+  import { Bug } from '@/interface';
   interface Props {
-    bugData: any;
+    bugData: Bug;
   }
   withDefaults(defineProps<Props>(), {});
   const spacer = h('span', { style: { color: '#ccc' } }, '|');
@@ -73,7 +74,6 @@
   }
   const onExpandComment = () => {
     action.comment = !action.comment;
-    console.log(action)
   }
 </script>
 <style lang='scss' scoped>
